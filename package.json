@@ -1,0 +1,33 @@
+{
+  "name": "slackretro",
+  "version": "1.0.0",
+  "description": "A bot to make slack retros easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Praqma/slackretro.git"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "retro",
+    "agile",
+    "automation"
+  ],
+  "author": "Ester Daniel Ytterbrink, Eficode Praqma",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Praqma/slackretro/issues"
+  },
+  "homepage": "https://github.com/Praqma/slackretro#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "npm": "^6.14.5",
+    "request": "^2.88.2"
+  }
+}
