@@ -34,6 +34,7 @@ const desc = JSON.parse(raw);
 
 
 app.post('/', (req, res) => {
+    res.status(200).send();
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
 
@@ -75,6 +76,7 @@ app.post('/', (req, res) => {
     })();
 });
 app.post('/list', (req, res) => {
+    res.send("");
     (async () => {
                const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
         let list = Object.keys(desc).reduce(reducer, ' ')
@@ -89,7 +91,7 @@ app.post('/list', (req, res) => {
 });
 
 app.post('/explain', (req, res) => {
-    res.send("ok");
+    res.send("");
     (async () => {
         let activity = req.body.text;
         let answer = "There is no description for " + activity + " yet.";
