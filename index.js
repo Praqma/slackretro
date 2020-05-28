@@ -39,10 +39,16 @@ app.post('/', (req, res) => {
             });
             console.log('Message sent: ', res.ts);
             if(step['thread']){
-                await web.chat.postMessage({channel: conversationId, thread_ts:res.ts , text: step['thread']}).catch((err) => {
-                    console.error(err);
-                });
-
+                let parentPost = res.ts
+                for(const part of step['thread']) {
+                    await web.chat.postMessage({
+                        channel: conversationId,
+                        thread_ts: parentPost,
+                        text: part['text']
+                    }).catch((err) => {
+                        console.error(err);
+                    });
+                }
             }
             console.log('Message sent: ', res.ts);
 
