@@ -4,7 +4,8 @@
   "description": "A bot to make slack retros easier",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
