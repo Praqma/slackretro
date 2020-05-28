@@ -89,6 +89,7 @@ app.post('/list', (req, res) => {
 });
 
 app.post('/explain', (req, res) => {
+    res.send("ok");
     (async () => {
         let activity = req.body.text;
         let answer = "There is no description for " + activity + " yet.";
