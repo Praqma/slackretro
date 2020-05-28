@@ -26,13 +26,19 @@ const web = new WebClient(token);
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
 const   conversationId = '#test-reto-bot';
 
+let layout = fs.readFileSync('layout.json');
+const retro = JSON.parse(layout);
+
+let raw = fs.readFileSync('descriptions.json')
+const desc = JSON.parse(raw);
+
+
 app.post('/', (req, res) => {
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
 
 
-        let layout = fs.readFileSync('layout.json');
-        let retro = JSON.parse(layout);
+
         for (const step of retro) {
             let res = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
                 console.error(err);
@@ -70,9 +76,7 @@ app.post('/', (req, res) => {
 });
 app.post('/list', (req, res) => {
     (async () => {
-        let raw = fs.readFileSync('descriptions.json')
-        let desc = JSON.parse(raw);
-        const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
+               const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
         let list = Object.keys(desc).reduce(reducer, ' ')
         let comment = await web.chat.postMessage({
             channel: conversationId,
@@ -87,8 +91,6 @@ app.post('/list', (req, res) => {
 app.post('/explain', (req, res) => {
     (async () => {
         let activity = req.body.text;
-        let raw = fs.readFileSync('descriptions.json')
-        let desc = JSON.parse(raw);
         let answer = "There is no description for " + activity + " yet.";
         if(activity in desc){
             answer = desc[activity];
