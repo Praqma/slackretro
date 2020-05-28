@@ -1,3 +1,4 @@
+const fs = require('fs');
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -28,8 +29,15 @@ const conversationId = '#test-reto-bot';
 app.post('/', (req, res) => {
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
-        const res = await web.chat.postMessage({ channel: conversationId, text: 'Instructions' }).catch((err) => { console.error(err); });
-        const next = await web.chat.postMessage({ channel: conversationId, text: 'Setting the stage' }).catch((err) => { console.error(err); });
+
+
+        let layout = fs.readFileSync('layout.json');
+        let retro = JSON.parse(layout);
+        for (const step of retro) {
+            await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
+                console.error(err);
+            });
+        }
 
         // `res` contains information about the posted message
         console.log('Message sent: ', res.ts);
