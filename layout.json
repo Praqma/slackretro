@@ -7,7 +7,9 @@
   { "part":"close the retro", "text": "Vote on items in thread.", "thread":
     [
       {"text":"How likely will this succeed?"},
-      {"text":"What did you think of this retrospective?"}
+      {"text":"What did you think of this retrospective?\n :alarm_clock: = Best use of my time \n :hammer:  = Got some useful tools \n :poop:  = Rather watch paint dry ",
+        "emoji":[":alarm_clock:", ":hammer:", ":poop:"]
+      }
     ]
   }
 ]

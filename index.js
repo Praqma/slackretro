@@ -41,13 +41,24 @@ app.post('/', (req, res) => {
             if(step['thread']){
                 let parentPost = res.ts
                 for(const part of step['thread']) {
-                    await web.chat.postMessage({
+                    let comment = await web.chat.postMessage({
                         channel: conversationId,
                         thread_ts: parentPost,
                         text: part['text']
                     }).catch((err) => {
                         console.error(err);
                     });
+                    if(part["emoji"]){
+                        for(const emoji of part["emoji"]){
+                            await web.reactions.add({
+                                channel: conversationId,
+                                timestamp: comment.ts,
+                                name: emoji
+                            }).catch((err) => {
+                                console.error(err);
+                            });
+                        }
+                    }
                 }
             }
             console.log('Message sent: ', res.ts);
