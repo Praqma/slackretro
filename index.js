@@ -68,6 +68,21 @@ app.post('/', (req, res) => {
         // `res` contains information about the posted message
     })();
 });
+app.post('/list', (req, res) => {
+    (async () => {
+        let raw = fs.readFileSync('descriptions.json')
+        let desc = JSON.parse(raw);
+        const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
+        let list = Object.keys(desc).reduce(reducer, ' ')
+        let comment = await web.chat.postMessage({
+            channel: conversationId,
+            text: list,
+            type: 'mrkdwn'
+        }).catch((err) => {
+            console.error(err);
+        });
+    })();
+});
 
 app.post('/explain', (req, res) => {
     (async () => {
