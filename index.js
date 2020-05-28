@@ -38,8 +38,6 @@ app.post('/', (req, res) => {
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
 
-
-
         for (const step of retro) {
             let res = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
                 console.error(err);
@@ -76,7 +74,7 @@ app.post('/', (req, res) => {
     })();
 });
 app.post('/list', (req, res) => {
-    res.send("");
+    res.status(200).send();
     (async () => {
                const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
         let list = Object.keys(desc).reduce(reducer, ' ')
@@ -91,7 +89,7 @@ app.post('/list', (req, res) => {
 });
 
 app.post('/explain', (req, res) => {
-    res.send("");
+    res.status(200).send();
     (async () => {
         let activity = req.body.text;
         let answer = "There is no description for " + activity + " yet.";
