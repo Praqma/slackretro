@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
+const { WebClient } = require('@slack/web-api');
 
 // Creates express app
 const app = express();
@@ -14,22 +15,24 @@ app.listen(process.env.PORT || PORT, function() {
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.post('/', (req, res) => {
-    let data = {form: {
-            token: process.env.SLACK_AUTH_TOKEN,
-            channel: "#test-reto-bot",
-            text: "Hi! This is the instructions for the retro held today."
-        }};
-    request.post('https://slack.com/api/chat.postMessage', data, function (error, response, body) {
-        // Sends welcome message
-        data = {form: {
-                token: process.env.SLACK_AUTH_TOKEN,
-                channel: "#test-reto-bot",
-                text: "Setting the stage."
-            }};
-        request.post('https://slack.com/api/chat.postMessage', data, function (error, response, body) {
 
-            });
-        });
-    });
+
+// An access token (from your Slack app or custom integration - xoxp, xoxb)
+const token = process.env.SLACK_AUTH_TOKEN;
+
+const web = new WebClient(token);
+
+// This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
+const conversationId = '#test-reto-bot';
+
+app.post('/', (req, res) => {
+    (async () => {
+        // See: https://api.slack.com/methods/chat.postMessage
+        const res = await web.chat.postMessage({ channel: conversationId, text: 'Instructions' }).catch((err) => { console.error(err); });
+        const next = await web.chat.postMessage({ channel: conversationId, text: 'Setting the stage' }).catch((err) => { console.error(err); });
+
+        // `res` contains information about the posted message
+        console.log('Message sent: ', res.ts);
+    })();
+});
 
