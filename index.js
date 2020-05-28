@@ -34,13 +34,21 @@ app.post('/', (req, res) => {
         let layout = fs.readFileSync('layout.json');
         let retro = JSON.parse(layout);
         for (const step of retro) {
-            await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
+            let res = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
                 console.error(err);
             });
+            console.log('Message sent: ', res.ts);
+            if(step['thread']){
+                await web.chat.postMessage({channel: conversationId, thread_ts:res.ts , text: step['thread']}).catch((err) => {
+                    console.error(err);
+                });
+
+            }
+            console.log('Message sent: ', res.ts);
+
         }
 
         // `res` contains information about the posted message
-        console.log('Message sent: ', res.ts);
     })();
 });
 
