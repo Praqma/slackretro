@@ -24,7 +24,7 @@ const token = process.env.SLACK_AUTH_TOKEN;
 const web = new WebClient(token);
 
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const conversationId = '#test-reto-bot';
+const   conversationId = '#test-reto-bot';
 
 app.post('/', (req, res) => {
     (async () => {
@@ -69,3 +69,20 @@ app.post('/', (req, res) => {
     })();
 });
 
+app.post('/explain', (req, res) => {
+    (async () => {
+        let activity = req.body.text;
+        let raw = fs.readFileSync('descriptions.json')
+        let desc = JSON.parse(raw);
+        let answer = "There is no description for " + activity + " yet.";
+        if(activity in desc){
+            answer = desc[activity];
+        }
+        let comment = await web.chat.postMessage({
+            channel: conversationId,
+            text: answer
+        }).catch((err) => {
+            console.error(err);
+        });
+})();
+});
