@@ -6,7 +6,7 @@ const request = require("request");
 const { WebClient } = require('@slack/web-api');
 
 const descriptions = require('./descriptions');
-
+const retroLayout = require('./layout');
 
 // Creates express app
 const app = express();
@@ -29,15 +29,12 @@ const web = new WebClient(token);
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
 const   conversationId = '#test-retro-bot';
 
-let layout = fs.readFileSync('layout.json');
-const retro = JSON.parse(layout);
-
 app.post('/', (req, res) => {
     res.status(200).send();
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
 
-        for (const step of retro) {
+        for (const step of retroLayout.basicRetro) {
             let res = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
                 console.error(err);
             });
