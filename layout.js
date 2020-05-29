@@ -1,5 +1,5 @@
 
-const instructions  = {blocks : [
+const instructions  = {"blocks" : [
     { "type": "sectoion",
       "text":
           {

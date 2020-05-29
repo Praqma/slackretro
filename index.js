@@ -35,16 +35,12 @@ app.post('/', (req, res) => {
     (async () => {
         // See: https://api.slack.com/methods/chat.postMessage
 
-        for (const step of retroLayout.basicRetro) {
-            if(step.blocks){
-                let message = await web.chat.postMessage({channel: conversationId, blocks: step.blocks}).catch((err) => {
-                    console.error(err);
-                });
-            }else{
-                let message = await web.chat.postMessage({channel: conversationId, text: step.text}).catch((err) => {
-                    console.error(err);
-                });
-            }
+        for (let step of retroLayout.basicRetro) {
+             step["channel"] = conversationId;
+
+             let message = await web.chat.postMessage(step).catch((err) => {
+                 console.error(err);
+             }
             let parentPost = message.ts
             if(step.emoji){
                 await messages.addEmoji(step.emoji, conversationId, parentPost, web);
