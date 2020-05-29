@@ -1,10 +1,12 @@
 const fs = require('fs');
 require('dotenv').config();
-const descriptions = require('./descriptions');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
 const { WebClient } = require('@slack/web-api');
+
+const descriptions = require('./descriptions');
+
 
 // Creates express app
 const app = express();
