@@ -1,5 +1,6 @@
 const fs = require('fs');
 require('dotenv').config();
+const descriptions = require('./descriptions');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
@@ -28,9 +29,6 @@ const   conversationId = '#test-reto-bot';
 
 let layout = fs.readFileSync('layout.json');
 const retro = JSON.parse(layout);
-
-let raw = fs.readFileSync('descriptions.json')
-const desc = JSON.parse(raw);
 
 
 app.post('/', (req, res) => {
@@ -91,14 +89,9 @@ app.post('/list', (req, res) => {
 app.post('/explain', (req, res) => {
     res.status(200).send();
     (async () => {
-        let activity = req.body.text;
-        let answer = "There is no description for " + activity + " yet.";
-        if(activity in desc){
-            answer = desc[activity];
-        }
         let comment = await web.chat.postMessage({
             channel: conversationId,
-            text: answer
+            text: descriptions.getDescription(req.body.text)
         }).catch((err) => {
             console.error(err);
         });
