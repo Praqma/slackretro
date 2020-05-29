@@ -36,7 +36,13 @@ app.post('/', (req, res) => {
         // See: https://api.slack.com/methods/chat.postMessage
 
         for (const step of retroLayout.basicRetro) {
-            let message = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
+            let content = {channel: conversationId}
+            if(step.blocks){
+                content["blocks"] = step.blocks;
+            }else{
+                content["text"] = step.text;
+            }
+            let message = await web.chat.postMessage(content).catch((err) => {
                 console.error(err);
             });
             let parentPost = message.ts
