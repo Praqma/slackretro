@@ -1,6 +1,13 @@
 
-const instructions  = { "text": "This is the instructions for the retro today"};
-const roundRobin = {"text": "List all participants here:"};
+const instructions  = { "text": "This is the instructions for the retro today. It will be held on Discord and in a dedicated slack channel, everyone a their own computer.\n" +
+      "Preparations: \n" +
+      "- make sure that discord works with video and you have a headset that works.\n" +
+      "- get some air\n" +
+      "- take bio-break\n" +
+      "- make sure you have coffee/tea/snacks/knitting ready if you want some.\n" +
+      "\n" +
+      "Like this post if you have read this post.\n"};
+const roundRobin = {"text": "List all participants here: - Some name \n - Next name"};
 const setStage =   { "text": "*React with an emoji* and round robin on why"};
 const gatherData =  {"text": "*Hash-tag-game* in the thread here:  #liked - good stuff #learned #lacked - want more of #longfor want to happen. Think about the time since last retro and use #hashtags to express yourself. Ex #liked #pairProgramming #longfor #coffeeWithTeam \n3. (5 min) Vote with + for most important. You have three votes\n4. (10 min) Copy on channel the one with the most votes"};
 const generateInsights = { "text": "*5-why mob-style* (15 min , ca 2 per person + shift)\nWe will go round robin working with the five why method. Each post explains “why” on the previous one, starting with the thing we want to fix.\nbut the typing will be done by the one after the one talking. \nOne post per person.\n"};
