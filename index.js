@@ -1,7 +1,6 @@
 const fs = require('fs');
 require('dotenv').config();
 const descriptions = require('./descriptions');
-const layout = require('./layout');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
