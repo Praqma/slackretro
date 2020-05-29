@@ -25,11 +25,10 @@ const token = process.env.SLACK_AUTH_TOKEN;
 const web = new WebClient(token);
 
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const   conversationId = '#test-reto-bot';
+const   conversationId = '#test-retro-bot';
 
 let layout = fs.readFileSync('layout.json');
 const retro = JSON.parse(layout);
-
 
 app.post('/', (req, res) => {
     res.status(200).send();
