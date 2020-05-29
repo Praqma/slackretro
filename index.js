@@ -1,6 +1,7 @@
 const fs = require('fs');
 require('dotenv').config();
 const descriptions = require('./descriptions');
+const layout = require('./layout');
 const express = require('express');
 const bodyParser = require('body-parser');
 const request = require("request");
@@ -74,7 +75,7 @@ app.post('/list', (req, res) => {
     res.status(200).send();
     (async () => {
                const reducer = (accumulator, currentValue) => accumulator +'- '+ currentValue + '\n';
-        let list = Object.keys(desc).reduce(reducer, ' ')
+        let list = descriptions.allActivities().reduce(reducer, ' ')
         let comment = await web.chat.postMessage({
             channel: conversationId,
             text: list,
