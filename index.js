@@ -40,7 +40,7 @@ app.post('/', (req, res) => {
 
              let message = await web.chat.postMessage(step).catch((err) => {
                  console.error(err);
-             }
+             });
             let parentPost = message.ts
             if(step.emoji){
                 await messages.addEmoji(step.emoji, conversationId, parentPost, web);
