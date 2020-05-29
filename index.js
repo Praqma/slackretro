@@ -7,6 +7,7 @@ const { WebClient } = require('@slack/web-api');
 
 const descriptions = require('./descriptions');
 const retroLayout = require('./layout');
+const messages = require('./messages');
 
 // Creates express app
 const app = express();
@@ -35,30 +36,25 @@ app.post('/', (req, res) => {
         // See: https://api.slack.com/methods/chat.postMessage
 
         for (const step of retroLayout.basicRetro) {
-            let res = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
+            let message = await web.chat.postMessage({channel: conversationId, text: step["text"]}).catch((err) => {
                 console.error(err);
             });
-            console.log('Message sent: ', res.ts);
-            if(step['thread']){
-                let parentPost = res.ts
-                for(const part of step['thread']) {
+            let parentPost = message.ts
+            if(step.emoji){
+                await messages.addEmoji(step.emoji, conversationId, parentPost, web);
+            }
+            console.log('Message sent: ', parentPost);
+            if(step.thread){
+                for(const part of step.thread) {
                     let comment = await web.chat.postMessage({
                         channel: conversationId,
                         thread_ts: parentPost,
-                        text: part['text']
+                        text: part.text
                     }).catch((err) => {
                         console.error(err);
                     });
-                    if(part["emoji"]){
-                        for(const emoji of part["emoji"]){
-                            await web.reactions.add({
-                                channel: conversationId,
-                                timestamp: comment.ts,
-                                name: emoji
-                            }).catch((err) => {
-                                console.error(err);
-                            });
-                        }
+                    if(part.emoji){
+                        await messages.addEmoji(part.emoji, conversationId, comment.ts, web);
                     }
                 }
             }
