@@ -3,7 +3,6 @@ const instructions  = {"blocks" : [
     { "type": "section",
       "text":
           {
-            "type":"mrkdwn",
             "text" : "*This is the instructions for the retro today.*"
           }
     },
@@ -12,7 +11,6 @@ const instructions  = {"blocks" : [
     },
     { "type": "section",
       "text": {
-        "type": "mrkdwn",
         "text": "It will be held on Discord and in a dedicated slack channel, everyone a their own computer.\n" +
             "Preparations: \n" +
             "- make sure that discord works with video and you have a headset that works.\n" +
@@ -47,7 +45,7 @@ const closeRetro =  {
     }
   ]
 };
-let basicRetro = [instructions, roundRobin, setStage, gatherData, generateInsights, decide, closeRetro]
+let basicRetro = [ roundRobin, setStage, gatherData, generateInsights, decide, closeRetro]
 
 
 module.exports = {
