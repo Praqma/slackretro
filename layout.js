@@ -1,6 +1,6 @@
 
 const instructions  = {"blocks" : [
-    { "type": "sectoion",
+    { "type": "section",
       "text":
           {
             "type":"mrkdwn",
