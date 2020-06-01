@@ -28,7 +28,7 @@ const token = process.env.SLACK_AUTH_TOKEN;
 const web = new WebClient(token);
 
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const   conversationId = '#test-retro-bot';
+const   conversationId = process.env.CHANNEL;
 
 app.post('/', (req, res) => {
     res.status(200).send();
