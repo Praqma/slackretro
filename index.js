@@ -22,27 +22,27 @@ app.use(bodyParser.json())
 // An access token (from your Slack app or custom integration - xoxp, xoxb)
 const token = process.env.SLACK_AUTH_TOKEN
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const conversationId = process.env.CHANNEL
+const channel = process.env.CHANNEL
 
 const web = new WebClient(token)
 
 app.post('/', (req, res) => {
   res.sendStatus(200)
-  postRetro.postRetro(conversationId, web).catch((err) => {
+  postRetro.postRetro(channel, web).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/list', (req, res) => {
   res.sendStatus(200)
-  listActivities.listActivities(conversationId, web, descriptions).catch((err) => {
+  listActivities.listActivities(channel, web, descriptions).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/explain', (req, res) => {
   res.sendStatus(200)
-  describeActivity.describeActivity(conversationId, web, descriptions, req.body.text).catch((err) => {
+  describeActivity.describeActivity(channel, web, descriptions, req.body.text).catch((err) => {
     console.error(err)
   })
 })
