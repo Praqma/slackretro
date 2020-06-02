@@ -4,7 +4,7 @@ async function postStep (web, step) {
   const message = await web.chat.postMessage(step).catch((err) => {
     console.error(err)
   })
-  console.log('channel ' + step.channel)
+  console.log('channel: ', step.channel)
   const parentPost = message.ts
   if (step.emoji) {
     await messages.addEmoji(step.emoji, step.channel, parentPost, web).catch((err) => {
