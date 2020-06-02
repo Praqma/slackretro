@@ -22,7 +22,7 @@ app.use(bodyParser.json())
 // An access token (from your Slack app or custom integration - xoxp, xoxb)
 const token = process.env.SLACK_AUTH_TOKEN
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const channel = process.env.CHANNEL
+const channel = '#' + process.env.CHANNEL
 
 const web = new WebClient(token)
 
