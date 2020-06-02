@@ -4,8 +4,14 @@
   "description": "A bot to make slack retros easier",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "start": "node index.js"
+    "test": "standard && jest",
+    "start": "node index.js",
+    "fix" : "standard -- fix"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   },
   "repository": {
     "type": "git",
@@ -33,6 +39,7 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "jest": "^26.0.1"
+    "jest": "^26.0.1",
+    "standard": "^14.3.4"
   }
 }
