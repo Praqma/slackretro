@@ -1,9 +1,9 @@
 const retroLayout = require('./layout')
 const postStep = require('./postStep')
 
-async function postRetro (conversationId, web) {
+async function postRetro (channel, web) {
   for (const step of retroLayout.basicRetro) {
-    step.channel = conversationId
+    step.channel = channel
     await postStep.postStep(web, step)
   }
 }

@@ -4,9 +4,10 @@ async function postStep (web, step) {
   const message = await web.chat.postMessage(step).catch((err) => {
     console.error(err)
   })
+  console.log('channel: ', message.channel)
   const parentPost = message.ts
   if (step.emoji) {
-    await messages.addEmoji(step.emoji, step.channel, parentPost, web).catch((err) => {
+    await messages.addEmoji(step.emoji, message.channel, parentPost, web).catch((err) => {
       console.error(err)
     })
   }
@@ -21,7 +22,7 @@ async function postStep (web, step) {
         console.error(err)
       })
       if (part.emoji) {
-        await messages.addEmoji(part.emoji, step.channel, comment.ts, web).catch((err) => {
+        await messages.addEmoji(part.emoji, comment.channel, comment.ts, web).catch((err) => {
           console.error(err)
         })
       }

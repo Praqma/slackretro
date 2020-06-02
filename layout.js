@@ -48,10 +48,13 @@ const decide = {
 const closeRetro = {
   text: '*Closing the retrospective.* React to messages in the thread. ',
   thread: [
-    { text: 'How likely will this succeed?' },
+    {
+      text: 'How likely will this succeed?',
+      emoji: ['one', 'two', 'three', 'four', 'five']
+    },
     {
       text: 'What did you think of this retrospective?\n :alarm_clock: = Best use of my time \n :hammer:  = Got some useful tools \n :poop:  = Rather watch paint dry ',
-      emoji: [':alarm_clock:', ':hammer:', ':poop:']
+      emoji: ['alarm_clock', 'hammer', 'poop']
     }
   ]
 }
