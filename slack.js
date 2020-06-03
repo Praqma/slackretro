@@ -54,10 +54,10 @@ const listActivities = async function (conversationId, web, descriptions) {
   })
 }
 
-const describeActivity = async function (conversationId, web, descriptions, activity) {
+const describeActivity = async function (conversationId, web, description) {
   await web.chat.postMessage({
     channel: conversationId,
-    text: descriptions.getDescription(activity)
+    text: description
   }).catch((err) => {
     console.error(err)
   })

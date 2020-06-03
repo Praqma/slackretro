@@ -2,10 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const { WebClient } = require('@slack/web-api')
-const retroLayout = require('./layout')
-const descriptions = require('./descriptions')
 const { postRetro, listActivities, describeActivity } = require('./slack')
-
+const { explainActivity, basicRetro, allActivities } = require('./data')
 // Creates express app
 const app = express()
 // The port used for Express server
@@ -24,24 +22,27 @@ const token = process.env.SLACK_AUTH_TOKEN
 const channel = process.env.CHANNEL
 
 const web = new WebClient(token)
+const theRetro = basicRetro()
+const activityNames = allActivities()
 
 app.post('/', (req, res) => {
   res.sendStatus(200)
-  postRetro(channel, web, retroLayout.basicRetro).catch((err) => {
+  postRetro(channel, web, theRetro).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/list', (req, res) => {
   res.sendStatus(200)
-  listActivities(channel, web, descriptions).catch((err) => {
+  listActivities(channel, web, activityNames).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/explain', (req, res) => {
   res.sendStatus(200)
-  describeActivity(channel, web, descriptions, req.body.text).catch((err) => {
+  const description = explainActivity(req.body.text)
+  describeActivity(channel, web, description).catch((err) => {
     console.error(err)
   })
 })
