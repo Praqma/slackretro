@@ -1,7 +1,7 @@
 const postMessage = require('./postMessage')
 
 async function postStep (web, step) {
-  const message = postMessage.postMessage(web, step)
+  const message = await postMessage.postMessage(web, step)
   if (step.thread) {
     for (const part of step.thread) {
       part.channel = step.channel
