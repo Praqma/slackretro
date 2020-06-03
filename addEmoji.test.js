@@ -1,4 +1,4 @@
-const messages = require('./messages')
+const messages = require('./addEmoji')
 
 test('adds an emoji', async () => {
   const posts = []

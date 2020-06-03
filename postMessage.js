@@ -1,4 +1,4 @@
-const messages = require('./messages')
+const messages = require('./addEmoji')
 async function postMessage (web, part) {
   const comment = await web.chat.postMessage(
     part
