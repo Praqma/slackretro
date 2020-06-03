@@ -14,11 +14,11 @@ async function postStep (web, step) {
   console.log('Message sent: ', parentPost)
   if (step.thread) {
     for (const part of step.thread) {
-      const comment = await web.chat.postMessage({
-        channel: step.channel,
-        thread_ts: parentPost,
-        text: part.text
-      }).catch((err) => {
+      part.channel = step.channel
+      part.thread_ts = parentPost
+      const comment = await web.chat.postMessage(
+        part
+      ).catch((err) => {
         console.error(err)
       })
       if (part.emoji) {
