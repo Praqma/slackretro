@@ -3,10 +3,9 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { WebClient } = require('@slack/web-api')
 
+const retroLayout = require('./layout')
 const descriptions = require('./descriptions')
-const postRetro = require('./postRetro')
-const listActivities = require('./listActivities')
-const describeActivity = require('./describeActivity')
+const { postRetro, listActivities, describeActivity } = require('./slack')
 // Creates express app
 const app = express()
 // The port used for Express server
@@ -28,21 +27,21 @@ const web = new WebClient(token)
 
 app.post('/', (req, res) => {
   res.sendStatus(200)
-  postRetro.postRetro(channel, web).catch((err) => {
+  postRetro(channel, web, retroLayout.basicRetro).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/list', (req, res) => {
   res.sendStatus(200)
-  listActivities.listActivities(channel, web, descriptions).catch((err) => {
+  listActivities(channel, web, descriptions).catch((err) => {
     console.error(err)
   })
 })
 
 app.post('/explain', (req, res) => {
   res.sendStatus(200)
-  describeActivity.describeActivity(channel, web, descriptions, req.body.text).catch((err) => {
+  describeActivity(channel, web, descriptions, req.body.text).catch((err) => {
     console.error(err)
   })
 })

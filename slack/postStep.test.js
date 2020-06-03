@@ -6,7 +6,7 @@ test('posts a plain step', async () => {
   expect.assertions(1)
   const step = { text: 'foo' }
 
-  await postStep.postStep(web, step, 'retro')
+  await postStep(web, step, 'retro')
   expect(posts).toStrictEqual([{
     text: 'foo'
   }])

@@ -1,4 +1,4 @@
-async function listActivities (conversationId, web, descriptions) {
+export default async function listActivities (conversationId, web, descriptions) {
   const reducer = (accumulator, currentValue) => accumulator + '- ' + currentValue + '\n'
 
   const list = descriptions.allActivities().reduce(reducer, ' ')
@@ -9,7 +9,4 @@ async function listActivities (conversationId, web, descriptions) {
   }).catch((err) => {
     console.error(err)
   })
-}
-module.exports = {
-  listActivities: listActivities
 }
