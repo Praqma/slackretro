@@ -53,7 +53,26 @@ const closeRetro = {
       emoji: ['one', 'two', 'three', 'four', 'five']
     },
     {
-      text: 'What did you think of this retrospective?\n :alarm_clock: = Best use of my time \n :hammer:  = Got some useful tools \n :poop:  = Rather watch paint dry ',
+      blocks: [
+        {
+          type: 'section',
+          text:
+                {
+                  type: 'mrkdwn',
+                  text: 'What did you think of this retrospective?'
+                }
+
+        }, {
+          type: 'divider'
+        }, {
+          type: 'section',
+          text:
+              {
+                type: 'mrkdwn',
+                text: ':alarm_clock: = Best use of my time \n :hammer:  = Got some useful tools \n :poop:  = Rather watch paint dry '
+              }
+
+        }],
       emoji: ['alarm_clock', 'hammer', 'poop']
     }
   ]
