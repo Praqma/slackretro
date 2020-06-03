@@ -1,4 +1,3 @@
-
 async function addEmoji (emojiList, channel, timestamp, web) {
   for (const emoji of emojiList) {
     await web.reactions.add({
