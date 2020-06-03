@@ -2,10 +2,10 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const { WebClient } = require('@slack/web-api')
-
 const retroLayout = require('./layout')
 const descriptions = require('./descriptions')
 const { postRetro, listActivities, describeActivity } = require('./slack')
+
 // Creates express app
 const app = express()
 // The port used for Express server
