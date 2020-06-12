@@ -1,5 +1,23 @@
-
-const activities = [
+interface SlackText {
+  type:string
+  text:string
+}
+interface SlackBlock {
+  type:string
+  text?: SlackText
+}
+interface SlackPost {
+  blocks?: SlackBlock []
+  text?: string
+  thread?: SlackPost[]
+  emoji?:string[]
+}
+interface Activity {
+  name: string
+  description: string
+  slack: SlackPost
+}
+const activities:Activity [] = [
   {
     name: 'Instructions',
     description: 'A remote retro might need more preparations than a co-located one.',
@@ -54,6 +72,7 @@ const activities = [
     slack: { text: '*React with an emoji* and round robin on why' }
   }, {
     name: 'Gathering data',
+    description: 'The purpose of this is to get as much information out as possible.',
     slack: {
       text: '*Hash-tag-game* in the thread here: \n' +
                 '  #liked - good stuff \n #learned \n #lacked - want more of \n #longfor want to happen. \n ' +
@@ -64,6 +83,7 @@ const activities = [
   },
   {
     name: 'Generate insights',
+    description: 'This is where we do pattern matching',
     slack:
             {
               text: '*5-why mob-style* (15 min , ca 2 per person + shift)\nWe will go round robin working with the five why method. Each post explains “why” on the previous one, starting with the thing we want to fix.\nbut the typing will be done by the one after the one talking. \nOne post per person.\n'
@@ -71,6 +91,7 @@ const activities = [
   },
   {
     name: 'Decide what to do',
+    description: 'To create change we need something actionable.',
     slack: {
       thread: [{ text: 'This is the thread to post your suggestions in.' }],
       text: '*Brainstorm actions* (10 min)\nIn the thread of this post!\nOne idea per post!\nThen we will vote again with :thumbsup:. (Three each) (1 min)\nAnd make the most popular one the actionable and defined task until next time. (5 min)\n'
@@ -78,6 +99,7 @@ const activities = [
   },
   {
     name: 'Close the retrospective',
+    description: 'Improving the process and getting closure',
     slack: {
       text: '*Closing the retrospective.* React to messages in the thread. ',
       thread: [
@@ -116,7 +138,7 @@ const basicRetro = function () {
   return activities.map(function (activity) { return activity.slack })
 }
 
-const explainActivity = function (activity) {
+const explainActivity = function (activity:string):string {
   for (const item of activities) {
     if (activity === item.name && item.description) {
       return item.description
@@ -126,7 +148,7 @@ const explainActivity = function (activity) {
 }
 
 const allActivities = function () {
-  const reducer = (accumulator, currentValue) => currentValue.name ? accumulator + '- ' + currentValue.name + '\n' : accumulator
+  const reducer = (accumulator:string, currentValue:Activity):string => currentValue.name ? accumulator + '- ' + currentValue.name + '\n' : accumulator
 
   return activities.reduce(reducer, ' ')
 }

@@ -4,7 +4,7 @@
   "description": "A bot to make slack retros easier",
   "main": "index.js",
   "scripts": {
-    "test": "standard && jest",
+    "test": "standard ./src && jest",
     "start": "tsc && node ./built/index.js",
     "fix": "standard -- fix"
   },
