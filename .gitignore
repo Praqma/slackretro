@@ -103,5 +103,8 @@ dist
 # TernJS port file
 .tern-port
 
+# TS
+/built
+
 #IDE
 .idea/

@@ -1,27 +1,25 @@
-interface SlackText {
-  type:string
-  text:string
-}
-interface SlackBlock {
-  type:string
-  text?: SlackText
-}
-interface SlackPost {
-  blocks?: SlackBlock []
-  text?: string
+import {ChatPostMessageArguments} from "@slack/web-api/dist/methods";
+
+export interface SlackPost extends ChatPostMessageArguments {
+  emoji?: string [],
   thread?: SlackPost[]
-  emoji?:string[]
 }
-interface Activity {
+
+export interface Activity {
   name: string
   description: string
   slack: SlackPost
+
 }
+const channel = process.env.CHANNEL? process.env.CHANNEL : "retro-bot";
+
 const activities:Activity [] = [
   {
     name: 'Instructions',
     description: 'A remote retro might need more preparations than a co-located one.',
     slack: {
+      text: "",
+      channel: channel,
       blocks: [
         {
           type: 'section',
@@ -62,18 +60,23 @@ const activities:Activity [] = [
   },
   {
     name: 'Round robin',
-    slack: { text: 'List all participants here: \n - Some name \n - Next name' },
+    slack: {
+      channel: channel,
+      text: 'List all participants here: \n - Some name \n - Next name' },
     description: 'Round robin is when each person comments on the topic in turn, without being interrupted.'
   },
   {
     name: 'Setting the stage',
     description: 'It is important to focus on here and now, setting the stage helps with that.' +
             ' It is also a way to get everyone to talk.',
-    slack: { text: '*React with an emoji* and round robin on why' }
+    slack: {
+      channel: channel,
+      text: '*React with an emoji* and round robin on why' }
   }, {
     name: 'Gathering data',
     description: 'The purpose of this is to get as much information out as possible.',
     slack: {
+      channel: channel,
       text: '*Hash-tag-game* in the thread here: \n' +
                 '  #liked - good stuff \n #learned \n #lacked - want more of \n #longfor want to happen. \n ' +
                 'Think about the time since last retro and use #hashtags to express yourself. ' +
@@ -86,6 +89,7 @@ const activities:Activity [] = [
     description: 'This is where we do pattern matching',
     slack:
             {
+              channel:channel,
               text: '*5-why mob-style* (15 min , ca 2 per person + shift)\nWe will go round robin working with the five why method. Each post explains “why” on the previous one, starting with the thing we want to fix.\nbut the typing will be done by the one after the one talking. \nOne post per person.\n'
             }
   },
@@ -93,7 +97,10 @@ const activities:Activity [] = [
     name: 'Decide what to do',
     description: 'To create change we need something actionable.',
     slack: {
-      thread: [{ text: 'This is the thread to post your suggestions in.' }],
+      channel:channel,
+      thread: [{
+        channel: channel,
+        text: 'This is the thread to post your suggestions in.' }],
       text: '*Brainstorm actions* (10 min)\nIn the thread of this post!\nOne idea per post!\nThen we will vote again with :thumbsup:. (Three each) (1 min)\nAnd make the most popular one the actionable and defined task until next time. (5 min)\n'
     }
   },
@@ -101,13 +108,16 @@ const activities:Activity [] = [
     name: 'Close the retrospective',
     description: 'Improving the process and getting closure',
     slack: {
+      channel:channel,
       text: '*Closing the retrospective.* React to messages in the thread. ',
       thread: [
         {
+          channel: channel,
           text: 'How likely will this succeed?',
           emoji: ['one', 'two', 'three', 'four', 'five']
         },
-        {
+        { text:"",
+          channel: channel,
           blocks: [
             {
               type: 'section',
@@ -134,7 +144,7 @@ const activities:Activity [] = [
     }
   }
 ]
-const basicRetro = function () {
+const basicRetro = function () : SlackPost[]{
   return activities.map(function (activity) { return activity.slack })
 }
 
@@ -147,7 +157,7 @@ const explainActivity = function (activity:string):string {
   return 'There is no description for ' + activity + ' yet.'
 }
 
-const allActivities = function () {
+const allActivities = function ():string {
   const reducer = (accumulator:string, currentValue:Activity):string => currentValue.name ? accumulator + '- ' + currentValue.name + '\n' : accumulator
 
   return activities.reduce(reducer, ' ')
