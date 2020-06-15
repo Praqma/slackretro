@@ -4,7 +4,7 @@
   	"noImplicitReturns": true,
   	"strict": true,
   	"noUnusedLocals": true,
-        "outDir": "./built",
+        "outDir": "./dist",
         "allowJs": true,
         "target": "es5"
     },
