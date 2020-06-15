@@ -1,5 +1,5 @@
 import {WebClient, WebAPICallResult} from "@slack/web-api"
-import {SlackPost, Activity} from './data'
+import {SlackPost} from './data'
 
 interface SlackPostResponse extends WebAPICallResult {
   channel:string,
@@ -47,9 +47,8 @@ const postStep = async function (web:WebClient, step:SlackPost) {
   }
 }
 
-const postRetro = async function (channel:string, web:WebClient, retro:Activity[]) {
-  for (const activity of retro) {
-    let step = activity.slack
+const postRetro = async function (channel:string, web:WebClient, retro:SlackPost[]) {
+  for (const  step of retro) {
     step.channel = channel
     await postStep(web, step)
   }

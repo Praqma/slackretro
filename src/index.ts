@@ -1,3 +1,5 @@
+import {SlackPost} from "./data";
+
 require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -23,8 +25,8 @@ const token = process.env.SLACK_AUTH_TOKEN
 const channel = process.env.CHANNEL
 
 const web = new WebClient(token)
-const theRetro = basicRetro()
-const activityNames = allActivities()
+const theRetro: SlackPost[] = basicRetro()
+const activityNames:string = allActivities()
 
 app.post('/', (req:Request, res:Response) => {
   res.sendStatus(200)
