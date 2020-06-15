@@ -29,6 +29,10 @@ const theRetro: SlackPost[] = basicRetro()
 const activityNames:string = allActivities()
 
 app.post('/', (req:Request, res:Response) => {
+  if(req.body.text === 'help') {
+    res.send('This command is used to build a standard retro, it will post a lot in the channel.')
+    return
+  }
   res.sendStatus(200)
   postRetro(channel, web, theRetro).catch((err:Error) => {
     console.error(err)
@@ -36,6 +40,10 @@ app.post('/', (req:Request, res:Response) => {
 })
 
 app.post('/list', (req: Request, res:Response) => {
+  if(req.body.text === 'help') {
+    res.send('This command is used to list different concepts in a retro.')
+    return
+  }
   res.sendStatus(200)
   listActivities(channel, web, activityNames).catch((err:Error) => {
     console.error(err)
@@ -43,9 +51,13 @@ app.post('/list', (req: Request, res:Response) => {
 })
 
 app.post('/explain', (req:Request, res: Response) => {
+  if(req.body.text === 'help') {
+    res.send('This command is used to explain concepts in a retro.')
+    return
+  }
   res.sendStatus(200)
   const description = explainActivity(req.body.text)
-  describeActivity(channel, web, description).catch((err:Error) => {
-    console.error(err)
-  })
+    describeActivity(channel, web, description).catch((err: Error) => {
+      console.error(err)
+    })
 })
