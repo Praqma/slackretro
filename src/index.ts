@@ -30,7 +30,7 @@ const activityNames:string = allActivities()
 
 app.post('/', (req:Request, res:Response) => {
   if(req.body.text === 'help') {
-    res.send('This command is used to build a standard retro, it will post a lot in the channel.')
+    res.send('build-retro is used to build a standard retro, it will post a lot in the channel.')
     return
   }
   res.sendStatus(200)
@@ -41,7 +41,7 @@ app.post('/', (req:Request, res:Response) => {
 
 app.post('/list', (req: Request, res:Response) => {
   if(req.body.text === 'help') {
-    res.send('This command is used to list different concepts in a retro.')
+    res.send('list is used to list different concepts in a retro.')
     return
   }
   res.sendStatus(200)
@@ -52,7 +52,7 @@ app.post('/list', (req: Request, res:Response) => {
 
 app.post('/explain', (req:Request, res: Response) => {
   if(req.body.text === 'help') {
-    res.send('This command is used to explain concepts in a retro.')
+    res.send('explain command is used to explain concepts in a retro.')
     return
   }
   res.sendStatus(200)
