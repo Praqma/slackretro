@@ -22,13 +22,13 @@ const postMessage = async function (web:WebClient, part:SlackPost) : Promise<voi
   let result = await web.chat.postMessage(
     part
   ).catch((err) => {
-    console.error(err)
+    throw new Error('Failed to post message');
   })
   if(result && result.ok){
     let comment = result as SlackPostResponse
     if (part.emoji) {
       await addEmoji(part.emoji, comment.channel, comment.ts, web).catch((err) => {
-        console.error(err)
+        throw new Error('Failed to add emoji');
       })
     }
   }
@@ -62,7 +62,7 @@ const listActivities = async function (conversationId:string, web:WebClient, lis
     text: list,
     type: 'mrkdwn'
   }).catch((err) => {
-    console.error(err)
+    throw new Error('Failed to post message');
   })
 }
 
@@ -71,7 +71,7 @@ const describeActivity = async function (conversationId:string, web:WebClient, d
     channel: conversationId,
     text: description
   }).catch((err) => {
-    console.error(err)
+    throw new Error('Failed to post message');
   })
 }
 

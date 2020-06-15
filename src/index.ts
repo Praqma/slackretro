@@ -28,16 +28,22 @@ const activityNames = allActivities()
 
 app.post('/', (req:Request, res:Response) => {
   res.sendStatus(200)
-  postRetro(channel, web, theRetro)
+  postRetro(channel, web, theRetro).catch((err:Error) => {
+    console.error(err)
+  })
 })
 
 app.post('/list', (req: Request, res:Response) => {
   res.sendStatus(200)
-  listActivities(channel, web, activityNames)
+  listActivities(channel, web, activityNames).catch((err:Error) => {
+    console.error(err)
+  })
 })
 
 app.post('/explain', (req:Request, res: Response) => {
   res.sendStatus(200)
   const description = explainActivity(req.body.text)
-  describeActivity(channel, web, description)
+  describeActivity(channel, web, description).catch((err:Error) => {
+    console.error(err)
+  })
 })
