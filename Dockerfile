@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:latest
 
 WORKDIR /usr/src/app
 
@@ -11,3 +11,5 @@ RUN npm run-script build
 CMD [ "npm", “run”, "start:prod" ]
 
 EXPOSE 3000
+
+USER node
