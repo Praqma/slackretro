@@ -29,7 +29,7 @@ const theRetro: SlackPost[] = basicRetro()
 const activityNames:string = allActivities()
 
 app.get('/', (req:Request, res:Response) => {
-    return res.send('This is a service to create retrospectives remote.')
+    return res.send('<h1>This is a service to create retrospectives remote.</h1><p><b>Really</b> awesome!</p><p>Just wait!</p>')
 })
 
 app.post('/', (req:Request, res:Response) => {
@@ -43,7 +43,7 @@ app.post('/', (req:Request, res:Response) => {
   })
 })
 
-app.post('/list', (req: Request, res:Response) => {
+app.post('/list', (req:Request, res:Response) => {
   if(req.body.text === 'help') {
     res.send('list is used to list different concepts in a retro.')
     return

@@ -4,10 +4,10 @@
   "description": "A bot to make slack retros easier",
   "main": "index.js",
   "scripts": {
-    "test": "standard ./src && jest",
+    "test": "standard ./src && tsc -p . && jest",
     "fix": "standard -- fix",
-    "start": "ts-node dist/index.js",
-    "start:prod": "ts-node dist/indes.js",
+    "start": "nodemon",
+    "start:prod": "ts-node dist/index.js",
     "build": "tsc -p ."
   },
   "standard": {
@@ -46,6 +46,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.0",
     "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
     "standard": "^14.3.4",
     "ts-jest": "^26.1.0"
   }

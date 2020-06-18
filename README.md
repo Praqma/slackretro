@@ -20,9 +20,13 @@ This sets up a shell with a dev environment.
  ``` 
     > docker-compose run --rm -p 3000:3000 retrobot_dev 
 ```
+Then you can run your commands to start the server in watch mode.
+```
+    > npm start
+```
+
 
 If you need to change the Dockerfile compose can rebuild it using.
 ```
     > docker-compse build
-
 ```
