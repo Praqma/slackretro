@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  retrobot_dev:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+        ENV_NAME: dev
+    container_name: retro-bot-dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/usr/src/app
