@@ -28,6 +28,10 @@ const web = new WebClient(token)
 const theRetro: SlackPost[] = basicRetro()
 const activityNames:string = allActivities()
 
+app.get('/', (req:Request, res:Response) => {
+    return res.send('This is a service to create retrospectives remote.')
+})
+
 app.post('/', (req:Request, res:Response) => {
   if(req.body.text === 'help') {
     res.send('build-retro is used to build a standard retro, it will post a lot in the channel.')
